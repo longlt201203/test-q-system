@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - q_sys_net
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    ports:
+      - 5540:5540
+    networks:
+      - q_sys_net
+
+networks:
+  q_sys_net:
+    name: q_sys_net
+    driver: bridge

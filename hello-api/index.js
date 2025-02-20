@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 
+async function wait() {
+  return new Promise((resolve) => setTimeout(resolve, 200));
+}
+
 // Middleware to parse JSON requests
 app.use(express.json());
 
@@ -12,7 +16,9 @@ let products = [
 ];
 
 // Get all products
-app.get("/api/products", (req, res) => {
+app.get("/api/products", async (req, res) => {
+  await wait();
+  console.log(req);
   res.json(products);
 });
 

@@ -49,10 +49,11 @@ const dynamicProxy = (req, res, next) => {
 
   if (data[targetName].fReq > data[targetName].fReqMax) {
     console.log("Max capacity reached!");
-    const pos = queue[targetName].length + 1;
+    const pos = queue[targetName].arr.length + 1;
     const est = data[targetName].delay * pos;
-    queue[targetName].push(req);
-    return res.send({ pos, est });
+    const id = ++queue[targetName].currentId;
+    queue[targetName].arr.push({ id, req });
+    return res.send({ id, pos, est });
   }
 
   if (!targetMap[targetName])

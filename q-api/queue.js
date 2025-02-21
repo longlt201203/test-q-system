@@ -9,4 +9,8 @@ const queue = {
   },
 };
 
+setInterval(() => {
+  queue.hello.arr.shift();
+}, 2000);
+
 module.exports = queue;

@@ -1,12 +1,29 @@
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
 const app = express();
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 async function wait() {
-  return new Promise((resolve) => setTimeout(resolve, 200));
+  return new Promise(
+    (resolve) => setTimeout(resolve, Math.floor(Math.random() * 2001))
+    // setTimeout(resolve, 5000)
+  );
 }
 
 // Middleware to parse JSON requests
 app.use(express.json());
+app.use("/api/public", express.static(path.join(process.cwd(), "uploads")));
 
 // In-memory product storage
 let products = [
@@ -18,8 +35,11 @@ let products = [
 // Get all products
 app.get("/api/products", async (req, res) => {
   await wait();
-  console.log(req);
   res.json(products);
+});
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  res.status(200).send("Success!");
 });
 
 // Get a product by ID

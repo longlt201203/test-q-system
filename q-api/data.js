@@ -1,6 +1,6 @@
 const data = {
   hello: {
-    fReqMax: 3,
+    fReqMax: 2,
     fReq: 0,
     fRes: 0,
     delay: 0,

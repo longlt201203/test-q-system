@@ -1,0 +1,28 @@
+{
+  "config": {
+    "target": "http://localhost:8080",
+    "phases": [
+      {
+        "duration": "2m",
+        "arrivalRate": 100
+      }
+    ],
+    "processor": "./processor.js",
+    "defaults": {
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "flow": [
+        {
+          "get": {
+            "url": "/q/hello/products"
+          }
+        }
+      ]
+    }
+  ]
+}
